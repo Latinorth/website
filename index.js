@@ -29,3 +29,7 @@ region.forEach((r) => {
         r.style.borderColor = '#BBBBFF';
     });
 });
+
+header.addEventListener('click', () => {
+    new Audio('assets/sounds/bleeh.mp3').play();
+});

@@ -20,13 +20,12 @@ body {
 .header {
     user-select: none;
     white-space: pre;
-    margin-bottom: 50px;
     text-align: center;
     align-items: center;
+    cursor: pointer;
     font-size: 1.36vh;
     height: 15vh;
     padding: 10px;
-
 }
 .reason p {
     padding: 20px;
