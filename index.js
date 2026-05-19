@@ -1,4 +1,5 @@
 const header = document.querySelector('.header');
+const region = document.querySelectorAll('.region');
 const banner = [
 "::::::::::'##::::::::::'###::::'########:'####:'##::: ##::'#######::'########::'########:'##::::'##::::::'########::'########:'##::::'##:",
 ":::::::::: ##:::::::::'## ##:::... ##..::. ##:: ###:: ##:'##.... ##: ##.... ##:... ##..:: ##:::: ##:::::: ##.... ##: ##.....:: ##:::: ##:",
@@ -9,8 +10,6 @@ const banner = [
 ":::::::::: ########: ##:::: ##:::: ##::::'####: ##::. ##:. #######:: ##:::. ##:::: ##:::: ##:::: ##: ###: ########:: ########:::. ###::::",
 "::::::::::........::..:::::..:::::..:::::....::..::::..:::.......:::..:::::..:::::..:::::..:::::..::...::........:::........:::::...:::::"
 ];
-const line = document.querySelectorAll('.line');
-
 
 setInterval(() => {
     for (let i = 0; i < banner.length; i++) {
@@ -18,6 +17,15 @@ setInterval(() => {
     }
     header.innerText = '';
     for (let i = 0; i < banner.length; i++) {
-        header.innerHTML += banner[i].slice(0, 120) + '<br>';
+        header.innerHTML += banner[i].slice(0, banner[i].length - 1) + '<br>';
     }
-}, 100);
+}, 30);
+
+region.forEach((r) => {
+    r.addEventListener('mouseover', () => {
+        r.style.borderColor = '#FF0000';
+    });
+    r.addEventListener('mouseout', () => {
+        r.style.borderColor = '#BBBBFF';
+    });
+});

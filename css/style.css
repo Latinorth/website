@@ -7,14 +7,42 @@ body {
     background: #222222;
     font-family: 'NotoSansMono', monospace;
     color: #CCCCCC;
+
+}
+* {
+    transition: border-color 0.15s
 }
 .header {
     white-space: pre;
-    border: 5px solid #444460;
-    border-radius: 20px;
-    padding: 10px;
-    margin: 20px;
     margin-bottom: 50px;
     text-align: center;
-    font-size: 1.27vw;
+    align-items: center;
+    font-size: 1.36vh;
+    height: 15vh;
+    padding: 10px;
+
+}
+.region {
+    border: 5px solid #BBBBFF;
+    border-radius: 20px;
+    margin: 20px;
+}
+.region h2 {
+    text-align: center;
+}
+.reason p {
+    padding: 20px;
+    font-size: 10px;
+}
+.reason {
+    width: 45vw;
+    max-width: 400px;
+}
+.links {
+    height: 50vh;
+    width: 45vw;
+}
+.parent {
+    display: flex;
+    align-items: left;
 }
