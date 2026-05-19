@@ -10,9 +10,12 @@ body {
 }
 .region {
     border: 2px solid #BBBBFF;
+    user-select: none;
     border-radius: 20px;
     margin: 2px;
-    transition: border-color 0.15s
+    transition: border-color 0.15s;
+    transition: border-width 0.15s;
+    position: fixed;
 }
 .region h2 {
     text-align: center;
@@ -36,7 +39,7 @@ body {
     max-width: 400px;
 }
 .links {
-    height: 50vh;
+    height: 100px;
     width: 45vw;
 }
 .parent {

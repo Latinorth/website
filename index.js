@@ -10,6 +10,7 @@ const banner = [
 ":::::::::: ########: ##:::: ##:::: ##::::'####: ##::. ##:. #######:: ##:::. ##:::: ##:::: ##:::: ##: ###: ########:: ########:::. ###:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::",
 "::::::::::........::..:::::..:::::..:::::....::..::::..:::.......:::..:::::..:::::..:::::..:::::..::...::........:::........:::::...::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
 ];
+let isDown = false;
 
 setInterval(() => {
     for (let i = 0; i < banner.length; i++) {
@@ -24,10 +25,28 @@ setInterval(() => {
 region.forEach((r) => {
     r.addEventListener('mouseover', () => {
         r.style.borderColor = '#FF0000';
+        document.body.style.cursor = "move"
     });
     r.addEventListener('mouseout', () => {
         r.style.borderColor = '#BBBBFF';
+        document.body.style.cursor = "default"
     });
+    r.addEventListener('mousedown', () => {
+        r.style.borderColor = '#AA0000';
+        r.style.borderWidth = '4px';
+        isDown = true;
+    });
+    r.addEventListener('mouseup', () => {
+        r.style.borderColor = '#FF0000';
+        r.style.borderWidth = '2px';
+        isDown = false;
+    });
+    r.addEventListener('mousemove', (e) => {
+        if (isDown) {
+            r.style.left = (e.clientX - 50)+ 'px';
+            r.style.top = (e.clientY - 50) + 'px';
+        }
+        });
 });
 
 header.addEventListener('click', () => {
