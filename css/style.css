@@ -9,9 +9,9 @@ body {
 
 }
 .region {
-    border: 5px solid #BBBBFF;
+    border: 2px solid #BBBBFF;
     border-radius: 20px;
-    margin: 20px;
+    margin: 2px;
     transition: border-color 0.15s
 }
 .region h2 {
@@ -29,7 +29,7 @@ body {
 }
 .reason p {
     padding: 20px;
-    font-size: 10px;
+    font-size: 14px;
 }
 .reason {
     width: 45vw;
