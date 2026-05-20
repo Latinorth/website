@@ -1,5 +1,6 @@
 const header = document.querySelector('.header');
 const region = document.querySelectorAll('.region');
+const parent = document.querySelector('.parent')
 const banner = [
 "::::::::::'##::::::::::'###::::'########:'####:'##::: ##::'#######::'########::'########:'##::::'##::::::'########::'########:'##::::'##::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::",
 ":::::::::: ##:::::::::'## ##:::... ##..::. ##:: ###:: ##:'##.... ##: ##.... ##:... ##..:: ##:::: ##:::::: ##.... ##: ##.....:: ##:::: ##::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::",
@@ -25,26 +26,34 @@ setInterval(() => {
 region.forEach((r) => {
     r.addEventListener('mouseover', () => {
         r.style.borderColor = '#FF0000';
-        document.body.style.cursor = "move"
+        document.body.style.cursor = "move";
     });
     r.addEventListener('mouseout', () => {
         r.style.borderColor = '#BBBBFF';
-        document.body.style.cursor = "default"
+        document.body.style.cursor = "default";
     });
     r.addEventListener('mousedown', () => {
+        r.style.transition = "top 1s";
+        r.style.transition = "left 1s";
+
         r.style.borderColor = '#AA0000';
         r.style.borderWidth = '4px';
         isDown = true;
     });
     r.addEventListener('mouseup', () => {
-        r.style.borderColor = '#FF0000';
+        r.style.borderColor = '#BBBBFF';
         r.style.borderWidth = '2px';
+        r.style.position = "static"
+        parent.appendChild(r);
         isDown = false;
     });
     r.addEventListener('mousemove', (e) => {
         if (isDown) {
-            r.style.left = (e.clientX - 50)+ 'px';
-            r.style.top = (e.clientY - 50) + 'px';
+            setTimeout(() => {
+                r.style.left = (e.clientX - r.clientWidth / 2) + 'px';
+                r.style.top = (e.clientY - r.clientHeight / 2) + 'px';
+                r.style.position = "fixed";
+            }, 15);
         }
         });
 });
