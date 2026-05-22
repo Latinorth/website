@@ -1,63 +1,82 @@
 const windows = document.querySelectorAll(".window");
-console.log(windows);
+//currently you can only click windows ~2 billion times, sorry :(
 let cuurZ = 0;
-let currWindow = null;
+let currWin = Element;
 document.body.style.background.zIndex = -1;
 
 document.addEventListener('keydown', (event) => {
     if (event.key && event.key === 'W') {
-        if (currWindow) {
-            currWindow.remove();
+        if (currWin) {
+            currWin.remove();
         }
     }
     if (event.key && event.key === 'F') {
-        if (currWindow) {
-            currWindow.style.width = "400px";
-            currWindow.style.height = "400px";
-            currWindow.style.zIndex = 0;
+        if (currWin) {
+            backgroundHandler(currWin);
         }
     }
 });
 
-windows.forEach((window) => {
-    let posX = 0;
-    let posY = 0;
+function backgroundHandler(win) {
+    //not at all complete, only 1 window allowed rn
+    if (win.isBackground) {
+        win.style.transition = "top 0.1s ease, left 0.1s ease, width 0.1s ease, height 0.1s ease";
+
+        const margin = getComputedStyle(win).margin;
+        win.style.width = `400px`;
+        win.style.height = `300px`;
+        win.style.top = `calc(50% - ${margin})`;
+        win.style.left = `calc(50% - ${margin})`;
+        win.style.zIndex = 1;
+        win.isBackground = false;
+    }
+    else {
+        win.style.transition = "top 0.1s ease, left 0.1s ease, width 0.1s ease, height 0.1s ease";
+
+        const margin = getComputedStyle(win).margin;
+        win.style.width = `calc(100% - ${margin})`;
+        win.style.height = `calc(100% - ${margin})`;
+        win.style.top = `calc(50% - ${margin})`;
+        win.style.left = `calc(50% - ${margin})`;
+        win.style.zIndex = 0;
+        win.isBackground = true;
+    }
+    return win
+}
+
+windows.forEach((win) => {
     let isDown = false;
-    window.style.zIndex = 1;
-    window.addEventListener("mousedown", (event) => {
+    win.isBackground = false;
+    win.style.zIndex = 1;
+
+    win.addEventListener("mousedown", (event) => {
         isDown = true;
+        win.style.cursor = "grabbing";
 
-        posX = event.clientX;
-        posY = event.clientY;
-
-        window.style.transition = "top 0.05s ease, left 0.05s ease";
-        window.style.left = `${posX}px`;
-        window.style.top = `${posY}px`;
+        win.style.transition = "top 0.05s ease, left 0.05s ease";
+        win.style.left = `${event.clientX}px`;
+        win.style.top = `${event.clientY}px`;
 
         cuurZ++;
-        window.style.zIndex = cuurZ;
+        win.style.zIndex = cuurZ;
     });
-    window.addEventListener("mouseup", () => {
+    win.addEventListener("mouseup", () => {
         isDown = false;
+        win.style.cursor = "default";
     });
-    window.addEventListener("mousemove", (event) => {
+    win.addEventListener("mouseenter", () => {
+        currWin = win;
+        win.style.borderColor = '#FF0000';
+    });
+    win.addEventListener("mouseleave", () => {
+        currWin = null;
+        win.style.borderColor = '#CCCCCC';
+    });
+    win.addEventListener("mousemove", (event) => {
         if (isDown) {
-            window.style.transition = "";
-            posX = event.clientX;
-            posY = event.clientY;
-
-            window.style.left = `${posX}px`;
-            window.style.top = `${posY}px`;
+            win.style.transition = "";
+            win.style.left = `${event.clientX}px`;
+            win.style.top = `${event.clientY}px`;
         }
-    });
-    window.addEventListener("mouseenter", () => {
-        currWindow = window;
-        window.style.borderColor = '#FF0000';
-        document.body.style.cursor = "move";
-    });
-    window.addEventListener("mouseleave", () => {
-        currWindow = null;
-        window.style.borderColor = '#CCCCCC';
-        document.body.style.cursor = "default";
     });
 });
