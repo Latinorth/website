@@ -15,6 +15,7 @@ body {
     margin: 2px;
     transition: border-color 0.15s;
     transition: border-width 0.15s;
+    transition: position 1s;
 }
 .region h2 {
     text-align: center;

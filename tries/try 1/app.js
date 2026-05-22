@@ -33,8 +33,6 @@ region.forEach((r) => {
         document.body.style.cursor = "default";
     });
     r.addEventListener('mousedown', () => {
-        r.style.transition = "top 1s";
-        r.style.transition = "left 1s";
 
         r.style.borderColor = '#AA0000';
         r.style.borderWidth = '4px';
