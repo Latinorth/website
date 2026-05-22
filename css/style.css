@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'NotoSansMono';
+    src: url('../assets/fonts/Noto_Sans_Mono/static/NotoSansMono-Regular.ttf') format('truetype');
+}
+
+body {
+    background: #222222;
+    font-family: 'NotoSansMono', monospace;
+    color: #CCCCCC;
+}
+.full-viewport {
+    width: 100vw;
+    height: 100vh;
+    background: #333333;
+    overflow: hidden;
+}
+.window {
+    width: 400px;
+    height: 300px;
+    background: #444444;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: #CCCCCC 1px solid;
+    border-radius: 20px;
+    user-select: none;
+}
