@@ -1,7 +1,7 @@
 const windows = document.querySelectorAll(".window");
 //currently you can only click windows ~2 billion times, sorry :(
 let cuurZ = 0;
-let currWin = Element;
+let currWin = null;
 document.body.style.background.zIndex = -1;
 
 document.addEventListener('keydown', (event) => {
@@ -18,6 +18,9 @@ document.addEventListener('keydown', (event) => {
 });
 
 function backgroundHandler(win) {
+    for (const w of windows) {
+        if (w.isBackground) return;
+    }
     //not at all complete, only 1 window allowed rn
     if (win.isBackground) {
         win.style.transition = "top 0.1s ease, left 0.1s ease, width 0.1s ease, height 0.1s ease";
@@ -41,16 +44,18 @@ function backgroundHandler(win) {
         win.style.zIndex = 0;
         win.isBackground = true;
     }
-    return win
+    return win;
 }
 
 windows.forEach((win) => {
-    let isDown = false;
+    win.isDown = false;
     win.isBackground = false;
     win.style.zIndex = 1;
 
     win.addEventListener("mousedown", (event) => {
-        isDown = true;
+        if (win.isBackground) return;
+
+        win.isDown = true;
         win.style.cursor = "grabbing";
 
         win.style.transition = "top 0.05s ease, left 0.05s ease";
@@ -61,7 +66,7 @@ windows.forEach((win) => {
         win.style.zIndex = cuurZ;
     });
     win.addEventListener("mouseup", () => {
-        isDown = false;
+        win.isDown = false;
         win.style.cursor = "default";
     });
     win.addEventListener("mouseenter", () => {
@@ -73,7 +78,7 @@ windows.forEach((win) => {
         win.style.borderColor = '#CCCCCC';
     });
     win.addEventListener("mousemove", (event) => {
-        if (isDown) {
+        if (win.isDown && !win.isBackground) {
             win.style.transition = "";
             win.style.left = `${event.clientX}px`;
             win.style.top = `${event.clientY}px`;
