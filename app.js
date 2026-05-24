@@ -18,10 +18,6 @@ document.addEventListener('keydown', (event) => {
 });
 
 function backgroundHandler(win) {
-    for (const w of windows) {
-        if (w.isBackground) return;
-    }
-    //not at all complete, only 1 window allowed rn
     if (win.isBackground) {
         win.style.transition = "top 0.1s ease, left 0.1s ease, width 0.1s ease, height 0.1s ease";
 
@@ -32,8 +28,15 @@ function backgroundHandler(win) {
         win.style.left = `calc(50% - ${margin})`;
         win.style.zIndex = 1;
         win.isBackground = false;
+        return win;
     }
-    else {
+
+    for (const w of windows) {
+        if (w.isBackground) return win;
+    }
+    //not at all complete, only 1 window allowed rn
+    
+    if (!win.isBackground) {
         win.style.transition = "top 0.1s ease, left 0.1s ease, width 0.1s ease, height 0.1s ease";
 
         const margin = getComputedStyle(win).margin;
