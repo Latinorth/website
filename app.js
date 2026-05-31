@@ -2,6 +2,7 @@ const windows = document.querySelectorAll(".window");
 //currently you can only click windows ~2 billion times, sorry :(
 let cuurZ = 0;
 let backgroundNum = 0;
+let shiftDown = false;
 let currWin = null;
 let backgroundWin = null;
 let backgroundWinLeft = null;
@@ -19,6 +20,22 @@ document.addEventListener('keydown', (event) => {
             backgroundHandler(currWin);
         }
     }
+    if (event.key === 'Shift') {
+            shiftDown = true;
+            document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            });
+            console.log("shift down");
+        }
+});
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'Shift') {
+            shiftDown = false;
+            document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            });
+            console.log("shift up");
+        }
 });
 
 function backgroundHandler(win) {
@@ -46,8 +63,8 @@ function backgroundHandler(win) {
         win.style.top = `calc(50% - ${margin})`;
         win.style.left = `calc(50% - ${margin})`;
         win.style.zIndex = 1;
-        win.isBackground = false;
         backgroundNum--;
+        win.isBackground = false;
         backgroundWin = null;
         return win;
     }
@@ -135,7 +152,7 @@ windows.forEach((win) => {
     win.style.zIndex = 1;
 
     win.addEventListener("mousedown", (event) => {
-        if (win.isBackground) return;
+        if (win.isBackground && !shiftDown) return;
 
         win.isDown = true;
         win.style.cursor = "grabbing";
@@ -160,10 +177,15 @@ windows.forEach((win) => {
         win.style.borderColor = '#CCCCCC';
     });
     win.addEventListener("mousemove", (event) => {
-        if (win.isDown && !win.isBackground) {
+        if (win.isDown && !win.isBackground && !shiftDown) {
             win.style.transition = "";
             win.style.left = `${event.clientX}px`;
             win.style.top = `${event.clientY}px`;
+        }
+        else if (win.isDown && !win.isBackground && shiftDown) {
+            win.style.transition = "";
+            win.style.width = `${event.clientX}px`;
+            win.style.height = `${event.clientY}px`;
         }
     });
 });

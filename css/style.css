@@ -33,3 +33,9 @@ body {
     justify-content: center;
     align-items: center;
 }
+#personal {
+   left: 75%;
+}
+#professional {
+    left: 25%;
+}
